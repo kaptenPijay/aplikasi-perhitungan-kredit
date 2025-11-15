@@ -96,7 +96,7 @@ plafond.addEventListener("keyup", () => {
     hitungProvisi(plafond, provisi);
     hitungBiayaAdmin(admin,tahun);
     hitungBiayaAsuransi(plafond,asuransi);
-    // totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
+    totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
 });
 
 tahun.addEventListener("change", () => {
@@ -108,6 +108,7 @@ tahun.addEventListener("change", () => {
 });
 tipe.addEventListener("change", () => {
   cekNilai(tipe, tahun, ekalloyd, rules)
-  // totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
+  hitungBiayaAsuransi(plafond,asuransi);
+  totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
 });
 })

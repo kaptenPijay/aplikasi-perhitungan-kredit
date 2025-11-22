@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { cekNilai, hitungCicilan, replaceDot, hitungProvisi, hitungBiayaAdmin, hitungBiayaAsuransi, totalPotongan } from './counter.js';
+import { cekNilai, hitungCicilan, replaceDot, hitungProvisi, hitungBiayaAdmin, hitungBiayaAsuransi, totalPotongan, sisaGaji, estimasiBersihDiterima } from './counter.js';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2'
 
@@ -13,6 +13,10 @@ const admin = document.getElementById("admin");
 const asuransi = document.getElementById("asuransi");
 const blokir = document.getElementById("blokir");
 const total = document.getElementById("total");
+const salary = document.getElementById("salary");
+const newAngsuran = document.getElementById("new_angsuran");
+const gajiTersisa = document.getElementById("sisa_gaji");
+const estimasiBersih = document.getElementById("estimasiBersih");
 
 for (let i = 1; i <= 20; i++) {
     tahun.insertAdjacentHTML("beforeend", `
@@ -92,23 +96,30 @@ const rules = {
 // Event listener
 plafond.addEventListener("keyup", () => {
     replaceDot(plafond);
-    hitungCicilan(plafond, tahun, blokir);
+    hitungCicilan(plafond, tahun, blokir, newAngsuran);
     hitungProvisi(plafond, provisi);
     hitungBiayaAdmin(admin,tahun);
     hitungBiayaAsuransi(plafond,asuransi);
     totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
+    estimasiBersihDiterima(plafond,total,estimasiBersih)
 });
 
 tahun.addEventListener("change", () => {
     cekNilai(tipe, tahun, ekalloyd, rules);
-    hitungCicilan(plafond, tahun, blokir);
+    hitungCicilan(plafond, tahun, blokir, newAngsuran);
     hitungBiayaAsuransi(plafond,asuransi);
     hitungBiayaAdmin(admin,tahun);
     totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
+    estimasiBersihDiterima(plafond,total,estimasiBersih)
 });
 tipe.addEventListener("change", () => {
   cekNilai(tipe, tahun, ekalloyd, rules)
   hitungBiayaAsuransi(plafond,asuransi);
   totalPotongan(total,blokir.value,provisi.dataset.value,admin.value,asuransi.value)
+  estimasiBersihDiterima(plafond,total,estimasiBersih)
 });
+salary.addEventListener("keyup",()=>{
+    replaceDot(salary);
+    sisaGaji(salary,newAngsuran,gajiTersisa)
+})
 })

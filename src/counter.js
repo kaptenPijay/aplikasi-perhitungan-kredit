@@ -20,7 +20,7 @@ export function PMT(rate, nper, pv) {
 }
 
 // Fungsi hitung cicilan
-export function hitungCicilan(plafond, tahun, blokir) {
+export function hitungCicilan(plafond, tahun, blokir,new_angsuran) {
     const bungaTahunan = 0.1225;
     const bungaBulanan = bungaTahunan / 12;
     const pokokPinjaman = Number(plafond.dataset.value || 0);
@@ -29,6 +29,7 @@ export function hitungCicilan(plafond, tahun, blokir) {
     const hasil = PMT(bungaBulanan, tenorBulan, -pokokPinjaman);
 
     blokir.value = Math.abs(Math.round(hasil)).toLocaleString("id-ID");
+    new_angsuran.value = Math.abs(Math.round(hasil)).toLocaleString("id-ID");
 }
 
 // Fungsi replaceDot (format input ribuan)
@@ -69,5 +70,20 @@ export function totalPotongan(total, blokir=0, provisi=0, admin=0, asuransi=0) {
 
     // Tampilkan format ribuan
     total.value = hasil.toLocaleString("id-ID");
+}
+export function sisaGaji(estimasi,newAngsuran,dat) {
+    const e = Number(String(estimasi.value).replace(/\D/g, "")) || 0;
+    const n = Number(String(newAngsuran.value).replace(/\D/g, "")) || 0;
+    let hasil = e-n;
+    dat.dataset.value = hasil;
+    dat.value = hasil.toLocaleString("id-ID")
+}
+
+export function estimasiBersihDiterima(plafond, total, estimasiBersih) {
+    const e = Number(String(plafond.value).replace(/\D/g, "")) || 0;
+    const n = Number(String(total.value).replace(/\D/g, "")) || 0;
+    let hasil = e-n;
+    estimasiBersih.dataset.value = hasil;
+    estimasiBersih.value = hasil.toLocaleString("id-ID")
 }
 

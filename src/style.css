@@ -12,6 +12,7 @@
 }
 body {
   background: linear-gradient(to bottom, rgb(152, 28, 28), white) !important;
+  background-repeat: no-repeat;
 }
 
   .custom-card {
